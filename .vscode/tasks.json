@@ -2,12 +2,11 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "Stage cleaned VS Code task configuration",
+			"label": "Install Harbor Health dependencies",
 			"type": "shell",
-			"command": "git",
+			"command": "npm",
 			"args": [
-				"add",
-				".vscode/tasks.json"
+				"install"
 			],
 			"isBackground": false,
 			"problemMatcher": []
