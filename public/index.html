@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f9f7">
+    <meta name="description" content="A friendly, accessible way to manage appointments and care with Harbor Health.">
+    <title>Harbor Health — care, made simpler</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="#" aria-label="Harbor Health home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 40 40"><path d="M20 5v30M5 20h30" /><circle cx="20" cy="20" r="16" /></svg>
+          </span>
+          <span class="brand-copy">harbor<span>health</span></span>
+        </a>
+
+        <div class="sidebar-label">YOUR SPACE</div>
+        <nav class="main-nav">
+          <button class="nav-item active" data-view="overview"><span class="nav-icon">⌂</span>Overview</button>
+          <button class="nav-item" data-view="appointments"><span class="nav-icon">▦</span>Appointments</button>
+          <button class="nav-item" data-view="care-team"><span class="nav-icon">♧</span>My care team</button>
+          <button class="nav-item" data-view="records"><span class="nav-icon">▤</span>Health records</button>
+          <button class="nav-item" data-view="messages"><span class="nav-icon">▱</span>Messages<span class="nav-count">2</span></button>
+        </nav>
+
+        <div class="sidebar-label tools-label">TOOLS</div>
+        <nav class="main-nav">
+          <button class="nav-item" data-view="medications"><span class="nav-icon">✳</span>Medications</button>
+          <button class="nav-item" data-view="settings"><span class="nav-icon">⚙</span>Settings</button>
+          <button class="nav-item hidden" data-view="administration"><span class="nav-icon">◎</span>Administration</button>
+        </nav>
+
+        <div class="sidebar-help">
+          <div class="help-icon" aria-hidden="true">♡</div>
+          <p>Need a hand?</p>
+          <span>Our care team is here for you.</span>
+          <a href="mailto:hello@harbor.health">Get in touch <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="sidebar-footer">
+          <span class="secure-dot" aria-hidden="true"></span>
+          Your information is private
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="mobile-brand">
+            <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 40 40"><path d="M20 5v30M5 20h30" /><circle cx="20" cy="20" r="16" /></svg></span>
+            <span class="brand-copy">harbor<span>health</span></span>
+          </div>
+          <div class="breadcrumb"><span>My health</span><span class="crumb-slash">/</span><strong id="current-crumb">Overview</strong></div>
+          <div class="top-actions">
+            <button class="icon-button notification-button" aria-label="Notifications">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4" /></svg><span class="notification-dot"></span>
+            </button>
+            <button class="profile-button" id="open-account" aria-label="Open account and sign in">
+              <span class="avatar" id="profile-avatar">S</span>
+              <span class="profile-name" id="profile-name">Sarah M.</span>
+              <span class="chevron">⌄</span>
+            </button>
+          </div>
+        </header>
+
+        <div class="page-wrap">
+          <section class="welcome-row">
+            <div>
+              <p class="eyebrow"><span class="eyebrow-dot"></span> <span id="today-label"></span></p>
+              <h1 id="greeting">Good morning, Sarah <span class="wave" aria-hidden="true">✳</span></h1>
+              <p class="welcome-note">A little care goes a long way. Here's your health at a glance.</p>
+              <p class="preview-note"><strong>PREVIEW</strong> Sample appointments and medication reminders—not clinical records.</p>
+            </div>
+            <button class="primary-button book-button" data-open-booking><span aria-hidden="true">＋</span> Book an appointment</button>
+          </section>
+
+          <section class="hero-card">
+            <div class="hero-content">
+              <div class="hero-tag"><span>✦</span> A NOTE FOR YOU</div>
+              <h2>Taking care of yourself<br>is always a good idea.</h2>
+              <p>Stay on top of your health with easy appointments and a care team that knows you.</p>
+              <button class="text-button" data-open-booking>Plan a visit <span aria-hidden="true">→</span></button>
+            </div>
+            <div class="hero-art" aria-hidden="true">
+              <div class="sun-disc"></div>
+              <div class="art-leaf leaf-one"></div><div class="art-leaf leaf-two"></div>
+              <div class="art-pot"></div>
+              <span class="art-spark spark-one">✳</span><span class="art-spark spark-two">✧</span>
+              <span class="hero-note">here for you <span>♡</span></span>
+            </div>
+          </section>
+
+          <section class="stats-grid" aria-label="Health overview">
+            <article class="stat-card">
+              <div class="stat-top"><span class="stat-icon icon-lilac">▦</span><span class="stat-label">UPCOMING VISIT</span></div>
+              <div class="stat-main"><strong id="next-visit-date">Oct 24</strong><span class="status-pill status-soon">In 4 days</span></div>
+              <p id="next-visit-detail">Dr. Maya Chen · Cardiology</p>
+            </article>
+            <article class="stat-card">
+              <div class="stat-top"><span class="stat-icon icon-mint">♡</span><span class="stat-label">CARE TEAM</span></div>
+              <div class="stat-main"><strong>3 <span class="stat-unit">people</span></strong><span class="mini-avatars"><i>MC</i><i>JP</i><i>+</i></span></div>
+              <p>Your trusted health partners</p>
+            </article>
+            <article class="stat-card">
+              <div class="stat-top"><span class="stat-icon icon-peach">✳</span><span class="stat-label">MEDICATIONS</span></div>
+              <div class="stat-main"><strong>2 <span class="stat-unit">active</span></strong><span class="status-pill status-good">On track</span></div>
+              <p>Next dose today at 8:00 PM</p>
+            </article>
+          </section>
+
+          <section class="content-grid">
+            <div class="appointments-panel panel">
+              <div class="panel-heading">
+                <div><p class="section-kicker">YOUR SCHEDULE</p><h2>Coming up</h2></div>
+                <button class="quiet-link" data-view="appointments">See all <span aria-hidden="true">→</span></button>
+              </div>
+              <div class="appointment-list" id="appointment-list">
+                <article class="appointment-item">
+                  <div class="date-tile"><span>OCT</span><strong>24</strong></div>
+                  <div class="appointment-info"><strong>Heart health check-in</strong><span>Dr. Maya Chen · Cardiology</span><span>10:30 AM <i>·</i> In person</span></div>
+                  <span class="appointment-type type-lilac">Visit</span>
+                  <button class="more-button" aria-label="More options">···</button>
+                </article>
+                <article class="appointment-item">
+                  <div class="date-tile date-tile-green"><span>NOV</span><strong>02</strong></div>
+                  <div class="appointment-info"><strong>Annual wellness visit</strong><span>Dr. James Park · Primary care</span><span>2:00 PM <i>·</i> In person</span></div>
+                  <span class="appointment-type type-green">Check-up</span>
+                  <button class="more-button" aria-label="More options">···</button>
+                </article>
+              </div>
+              <div class="empty-appointments hidden" id="empty-appointments">
+                <span aria-hidden="true">✿</span><strong>Nothing on the calendar just yet.</strong>
+                <button class="quiet-link" data-open-booking>Book your first visit →</button>
+              </div>
+              <div class="appointment-footer"><span class="secure-dot"></span>Need to change a visit? <a href="mailto:hello@harbor.health">We're happy to help</a></div>
+            </div>
+
+            <aside class="care-panel panel">
+              <div class="panel-heading">
+                <div><p class="section-kicker">PEOPLE WHO CARE</p><h2>Your care team</h2></div>
+                <button class="round-arrow" data-view="care-team" aria-label="View care team">→</button>
+              </div>
+              <div class="doctor-card">
+                <div class="doctor-avatar doctor-maya">MC<span class="online-indicator"></span></div>
+                <div class="doctor-copy"><strong>Dr. Maya Chen</strong><span>Cardiology</span><span class="rating"><span>★</span> Your heart specialist</span></div>
+                <button class="message-button" aria-label="Message Dr. Maya Chen">↗</button>
+              </div>
+              <div class="doctor-card">
+                <div class="doctor-avatar doctor-james">JP<span class="online-indicator"></span></div>
+                <div class="doctor-copy"><strong>Dr. James Park</strong><span>Primary care</span><span class="rating"><span>★</span> Your primary doctor</span></div>
+                <button class="message-button" aria-label="Message Dr. James Park">↗</button>
+              </div>
+              <button class="add-care-link" data-view="care-team"><span>＋</span> Find a doctor</button>
+            </aside>
+          </section>
+
+          <section class="bottom-grid">
+            <article class="reminder-card panel">
+              <div class="reminder-icon">☼</div>
+              <div><p class="section-kicker">A GENTLE REMINDER</p><h3>Your evening medication</h3><p>Atorvastatin · 1 tablet · 8:00 PM</p></div>
+              <button class="reminder-action" id="dose-button">Mark as taken</button>
+            </article>
+            <article class="privacy-card panel">
+              <div class="privacy-shield" aria-hidden="true">✓</div>
+              <div><h3>Your health, kept private.</h3><p>Your information is protected and only shared with your care team.</p><button class="privacy-link" data-view="settings">Learn about your privacy <span>→</span></button></div>
+            </article>
+          </section>
+          <footer class="page-footer">Here for every step of your health journey. <span>Made with care <b>♡</b></span></footer>
+          <section class="admin-panel hidden" id="admin-panel" aria-labelledby="admin-heading">
+            <div class="panel-heading admin-heading">
+              <div><p class="section-kicker">HARBOR HEALTH TEAM</p><h2 id="admin-heading">Account administration</h2></div>
+              <button class="quiet-link" id="refresh-admin">Refresh data ↻</button>
+            </div>
+            <p class="admin-description">Review verified doctor applications, manage patient accounts, and review the security audit trail.</p>
+            <div class="admin-status" id="admin-status" role="status"></div>
+            <div class="panel admin-table-wrap">
+              <table class="admin-table">
+                <thead><tr><th scope="col">Person</th><th scope="col">Role</th><th scope="col">Account</th><th scope="col">Action</th></tr></thead>
+                <tbody id="admin-users"></tbody>
+              </table>
+            </div>
+            <div class="panel admin-audit">
+              <div class="panel-heading"><div><p class="section-kicker">ACCOUNTABILITY</p><h2>Recent security activity</h2></div></div>
+              <div id="audit-list" class="audit-list"></div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <dialog class="modal" id="auth-modal">
+      <form method="dialog" class="modal-close-row"><button class="modal-close" aria-label="Close">×</button></form>
+      <div class="modal-heading"><p class="section-kicker">WELCOME TO HARBOR</p><h2 id="auth-title">Sign in to your account</h2><p id="auth-description">Your care is right where you left it.</p></div>
+      <form id="login-form" class="form-stack">
+        <label>Email address<input type="email" name="email" autocomplete="email" required placeholder="you@example.com"></label>
+        <label>Password<input type="password" name="password" autocomplete="current-password" required minlength="12" placeholder="At least 12 characters"></label>
+        <button class="primary-button full-button" type="submit">Continue securely <span>→</span></button>
+      </form>
+      <form id="code-form" class="form-stack hidden">
+        <label id="code-prompt">6-digit security code<input type="text" name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required placeholder="000000"></label>
+        <button class="primary-button full-button" type="submit">Verify and sign in <span>→</span></button>
+        <button class="quiet-link hidden" id="resend-code" type="button">Resend verification code</button>
+      </form>
+      <form id="register-form" class="form-stack hidden">
+        <label>Your name<input type="text" name="name" autocomplete="name" required minlength="2" maxlength="100" placeholder="Full name"></label>
+        <label>Email address<input type="email" name="email" autocomplete="email" required placeholder="you@example.com"></label>
+        <label>Create a password<input type="password" name="password" autocomplete="new-password" required minlength="12" placeholder="At least 12 characters"></label>
+        <label>I am a
+          <select name="role" required><option value="patient">Patient</option><option value="doctor">Doctor</option></select>
+        </label>
+        <button class="primary-button full-button" type="submit">Create account <span>→</span></button>
+      </form>
+      <div class="auth-toggle" id="auth-toggle">New to Harbor? <button type="button" id="show-register">Create an account</button></div>
+      <p class="form-message" id="form-message" role="status" aria-live="polite"></p>
+    </dialog>
+
+    <dialog class="modal booking-modal" id="booking-modal">
+      <form method="dialog" class="modal-close-row"><button class="modal-close" aria-label="Close">×</button></form>
+      <div class="modal-heading"><p class="section-kicker">LET'S GET YOU SEEN</p><h2>Book an appointment</h2><p>Choose a doctor and a time that works for you.</p></div>
+      <form id="booking-form" class="form-stack">
+        <label>Choose a doctor<select name="doctorId" required><option value="">Loading doctors…</option></select></label>
+        <label>Date and time<input name="startsAt" type="datetime-local" required></label>
+        <label>What would you like help with?<textarea name="reason" rows="3" required minlength="3" maxlength="500" placeholder="A short note for your doctor"></textarea></label>
+        <button class="primary-button full-button" type="submit">Request appointment <span>→</span></button>
+      </form>
+      <p class="form-message" id="booking-message" role="status" aria-live="polite"></p>
+    </dialog>
+
+    <dialog class="modal" id="security-modal">
+      <form method="dialog" class="modal-close-row"><button class="modal-close" aria-label="Close">×</button></form>
+      <div class="modal-heading"><p class="section-kicker">EXTRA PEACE OF MIND</p><h2>Secure your account</h2><p>Choose an authenticator app or use a one-time code sent to your verified email each time you sign in.</p></div>
+      <div id="totp-setup-panel">
+        <button class="primary-button full-button" id="start-totp" type="button">Set up an authenticator app <span>→</span></button>
+        <div class="qr-panel hidden" id="qr-panel"><img id="totp-qr" alt="Authenticator setup QR code"><p>Scan this QR code with your authenticator app. Codes refresh every 2 minutes.</p>
+          <form id="totp-form" class="form-stack"><label>Enter the 6-digit code<input name="code" inputmode="numeric" pattern="[0-9]{6}" maxlength="6" required></label><button class="primary-button full-button" type="submit">Confirm authenticator</button></form>
+        </div>
+      </div>
+      <button class="quiet-link hidden" id="sign-out" type="button">Sign out securely →</button>
+      <p class="form-message" id="security-message" role="status" aria-live="polite"></p>
+    </dialog>
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <button class="active" data-view="overview"><span>⌂</span>Home</button>
+      <button data-view="appointments"><span>▦</span>Visits</button>
+      <button data-view="care-team"><span>♧</span>Care team</button>
+      <button data-view="records"><span>▤</span>Records</button>
+      <button class="hidden" data-view="administration"><span>◎</span>Admin</button>
+    </nav>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>

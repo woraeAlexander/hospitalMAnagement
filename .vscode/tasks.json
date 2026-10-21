@@ -1,0 +1,233 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Install Harbor Health dependencies",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"install"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Validate JavaScript syntax",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"--check",
+				"server.js"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check all JavaScript files",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"-e",
+				"const {spawnSync}=require('node:child_process'); for (const file of ['server.js','public/app.js','scripts/bootstrap-admin.js']) { const result=spawnSync(process.execPath,['--check',file],{stdio:'inherit'}); if (result.status !== 0) process.exitCode = result.status || 1; else console.log(`Syntax OK: ${file}`); }"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Audit production dependencies",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"audit",
+				"--omit=dev"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check Nodemailer release requirements",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"view",
+				"nodemailer@10.1.7",
+				"version",
+				"engines"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check server syntax",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"--check",
+				"server.js"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Final production dependency audit",
+			"type": "shell",
+			"command": "npm",
+			"args": [
+				"audit",
+				"--omit=dev"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check bootstrap syntax",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"--check",
+				"scripts/bootstrap-admin.js"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check browser script syntax",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"--check",
+				"public/app.js"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check local Git setup",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short",
+				"--branch"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check local env safety",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"-e",
+				"const fs=require('node:fs'); const p=require('node:path'); console.log('.env exists:',fs.existsSync('.env')); console.log('.env.example present:',fs.existsSync('.env.example')); console.log('package-lock present:',fs.existsSync('package-lock.json')); console.log('.git directory present:',fs.existsSync('.git')); const files=['.env.example','README.md','render.yaml','package.json','server.js','schema.sql']; const risky=/(postgres(?:ql)?:\\/\\/[^\\s:@]+:[^\\s@]+@|re_[A-Za-z0-9_-]{20,}|JWT_SECRET=[^\\s]+|PASSWORD_PEPPER=(?!generate-)[^\\s]+|SMTP_PASSWORD=(?!your-)[^\\s]+)/; const hits=files.filter(f=>fs.existsSync(f)&&risky.test(fs.readFileSync(f,'utf8'))); console.log('credential-like values in checked source/config:',hits.length ? hits.join(', ') : 'none');"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check environment files exist",
+			"type": "shell",
+			"command": "node",
+			"args": [
+				"-e",
+				"console.log(JSON.stringify({ localEnv: require('node:fs').existsSync('.env'), envExample: require('node:fs').existsSync('.env.example'), gitDirectory: require('node:fs').existsSync('.git') }))"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check Git status before publishing",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short",
+				"--branch"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Initialize local Git repository",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"init",
+				"-b",
+				"main"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check files before staging",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short",
+				"--ignored"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Stage safe project files",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"-A"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Confirm environment ignored",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"check-ignore",
+				"-v",
+				".env",
+				"node_modules"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Review staged filenames",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"diff",
+				"--cached",
+				"--name-only"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check staged and unstaged files",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"status",
+				"--short"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Stage latest safe files",
+			"type": "shell",
+			"command": "git",
+			"args": [
+				"add",
+				"-A"
+			],
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}
